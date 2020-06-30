@@ -1,0 +1,86 @@
+  <div class="container">
+    <div>
+      <p *ngIf="!(medicines$ | async)"><em>Loading...</em></p>
+      <p>
+        <a [routerLink]="['/add']" class="btn btn-primary float-right mb-3">Add Medicine</a>
+      </p>
+    </div>
+    <br />   
+    <br />
+    <br />
+    <div>
+      <p-table #dtt [columns]="cols" [value]="(medicines$ | async)" *ngIf="(medicines$ | async)?.length>0" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+               [scrollable]="true" scrollHeight="200px">
+        <!--selectionMode="single" [(selection)]="selectedWhether1" dataKey="date"-->
+        <ng-template pTemplate="caption">
+          <h2>Medicine Tracker</h2>
+
+          <div style="text-align: right">
+            <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dtt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th colspan="1" align="center">Med ID #</th>
+            <th colspan="1" align="center">Medicine Name</th>
+            <th colspan="1" align="center">Brand</th>
+            <th colspan="1" align="center">Price($)</th>
+            <th colspan="1" align="center">Quantity</th>
+            <th colspan="1" align="center">Expiry Date</th>
+            <!--<th colspan="1" align="center">Notes</th>-->
+            <th colspan="1" align="center">Edit/Delete</th>
+          </tr>
+          <!--<tr>
+          <th *ngFor="let col of columns" [ngSwitch]="col.field">
+            <input pInputText type="text" (input)="dtt.filter($event.target.value, col.field, 'contains')">
+          </th>
+        </tr>-->
+        </ng-template>
+        <ng-template pTemplate="body" let-medicine>
+          <tr [style.background]="getSelected(medicine)">
+            <td>{{ medicine.id }}</td>
+            <td><a [routerLink]="['/medicine/', medicine.id]">{{ medicine.name }}</a></td>
+            <td>{{ medicine.brand }}</td>
+            <td>{{ medicine.price }}</td>
+            <td>{{ medicine.quantity }}</td>
+            <td>{{ medicine.expiryDate | date: "dd.MM.yyyy" }}</td>
+            <!--<td>{{ medicine.notes }}</td>-->
+          <td>
+            <a [routerLink]="['/medicine/edit/', medicine.id]" class="btn btn-primary btn-sm float-left">Edit</a>
+            &emsp;
+            <a [routerLink]="" (click)="delete(medicine.id)" class="btn btn-danger btn-sm float-left">Delete</a>
+          </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+
+
+      <!--<table class="table table-sm table-hover" *ngIf="(blogPosts$ | async)?.length>0">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>Creator</th>
+          <th>Date</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let blogPost of (blogPosts$ | async)" [class.make-red]="blogPost.postId==8">
+          <td>{{ blogPost.postId }}</td>
+          <td><a [routerLink]="['/blogpost/', blogPost.postId]">{{ blogPost.title }}</a></td>
+          <td>{{ blogPost.creator }}</td>
+          <td>{{ blogPost.dt | date: "dd.MM.y" }}</td>
+          <td>
+            <a [routerLink]="['/blogpost/edit/', blogPost.postId]" class="btn btn-primary btn-sm float-right">Edit</a>
+          </td>
+          <td><a [routerLink]="" (click)="delete(blogPost.postId)" class="btn btn-danger btn-sm float-right">Delete</a></td>
+        </tr>
+      </tbody>
+    </table>-->
+    </div>
+  </div>

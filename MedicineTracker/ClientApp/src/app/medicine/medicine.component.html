@@ -1,0 +1,12 @@
+<ng-container *ngIf="(medicine$ | async) as medicine; else loading">
+
+  <h1>Medicine Name - {{ medicine.name }}</h1>
+  <div> Brand - {{ medicine.brand }}</div>
+  <ul>
+    <li> Price - ${{ medicine.price }}</li>
+    <li>Quantity - {{ medicine.quantity }}</li>
+    <li>Expiry Date - {{ medicine.expiryDate | date: "dd.MM.yyyy" }}</li>
+  </ul>
+
+</ng-container>
+<ng-template #loading>Loading…</ng-template>
