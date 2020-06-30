@@ -38,6 +38,7 @@ In Visual Studio 2019, Open Project:
 	- Application Home Url : https://localhost:44331
 	
 7. Code Test Functionalty available on : https://localhost:44331/medicines
+8. GitHub Link : https://github.com/rahul2005/MedicineTracker
 
 	
 
